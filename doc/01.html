@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="author" content="阿飞飞">
+    <style>
+        * { margin: 0; padding: 0; font-family: "Microsoft yahei",serif;}
+    </style>
+</head>
+<body onload="init()">
+    <script src="../src/three.js"></script>
+    <script>
+        function init() {
+            /*var renderer = new THREE.WebGLRenderer({
+                canvas : document.getElementById("myCanvas")
+            });*/
+
+            var renderer = new THREE.WebGLRenderer();
+
+            //创建canvas，设置宽高400*300
+            renderer.setSize(400,300);
+            document.body.appendChild(renderer.domElement);
+            renderer.setClearColor(0x222222);
+
+            //场景
+            var scene = new THREE.Scene();
+
+            //照相机
+            var camera = new THREE.PerspectiveCamera(45,4/3,1,1000);
+            camera.position.set(0,0,5);
+            scene.add(camera);
+
+            //长方体
+            var cube = new THREE.Mesh(
+                new THREE.CubeGeometry(1,2,3),
+                new THREE.MeshBasicMaterial({color:0xff0000})
+            );
+            scene.add(cube);
+
+            //渲染
+            renderer.render(scene,camera);
+
+        }
+    </script>
+</body>
+</html>

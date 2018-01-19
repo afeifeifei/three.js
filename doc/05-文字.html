@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="author" content="阿飞飞">
+    <style>
+        * { margin: 0; padding: 0; font-family: "Microsoft yahei",serif;}
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+    <script src="../src/three.js"></script>
+    <script>
+
+        //渲染器
+        var renderer = new THREE.WebGLRenderer(); //实例对象
+        renderer.setSize(400,300);//创建canvas大小
+        document.body.appendChild(renderer.domElement);//canvas添加到body
+        renderer.setClearColor(0x666666);//初始化颜色
+
+        //必备元素：场景 + 照相机 + 图形
+
+        //场景
+        var scene = new THREE.Scene();
+
+        //照相机
+        var camera = new THREE.PerspectiveCamera(45,4/3,1,10);//相机种类-透视相机
+        //var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);//相机种类-正交相机
+        camera.position.set(1,.5,6);//相机位置
+        scene.add(camera);//场景中置入相机
+
+        //文字需要先下载字体库，然后引入
+        var loader = new THREE.FontLoader();
+        loader.load("../src/optimer_regular.typeface.json" , function (font) {
+            var mesh = new THREE.Mesh(
+                new THREE.TextGeometry("HELLO",{
+                    font : font,
+                    size : 1,
+                    height : 1
+                }),
+                new THREE.MeshBasicMaterial({
+                    color : 0xff0000,
+                    wireframe: true
+                })
+            );
+            scene.add(mesh);
+
+            renderer.render(scene,camera);
+        });
+        
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
