@@ -6,16 +6,22 @@
     <meta name="author" content="阿飞飞">
     <style>
         * { margin: 0; padding: 0; font-family: "Microsoft yahei",serif;}
+        body{
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
     <div id="wrap"></div>
-    <script src="../src/three.js"></script>
+    <script src="src/three.js"></script>
     <script>
 
-        /*//渲染器
+        var w = window.innerWidth,
+            h = window.innerHeight;
+
+        //渲染器
         var renderer = new THREE.WebGLRenderer(); //实例对象
-        renderer.setSize(400,300);//创建canvas大小
+        renderer.setSize(w,h);//创建canvas大小
         document.body.appendChild(renderer.domElement);//canvas添加到body
         renderer.setClearColor(0x666666);//初始化颜色
 
@@ -25,7 +31,7 @@
         var scene = new THREE.Scene();
 
         //照相机
-        var camera = new THREE.PerspectiveCamera(45,4/3,1,10);//相机种类-透视相机
+        var camera = new THREE.PerspectiveCamera(45,w/h,1,10);//相机种类-透视相机
         //var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);//相机种类-正交相机
         camera.position.set(0,0,5);//相机位置
         scene.add(camera);//场景中置入相机
@@ -34,16 +40,28 @@
         var cube = new THREE.Mesh(
             //new THREE.CubeGeometry(1,2,3,2,2,2),//长方体
             //new THREE.PlaneGeometry(2,4,2,2),//长方形
-            //new THREE.SphereGeometry(1.5,10,10,0,Math.PI/2),//球体
+            //new THREE.SphereGeometry(1.5,10,10,0),//球体
             //new THREE.CircleGeometry(1.5,80),//圆形
             //new THREE.CylinderGeometry(1.5,1.5,2.5,20,20,false),//圆柱体
             //new THREE.TetrahedronGeometry(2),//正四面体
-            new THREE.TorusGeometry(1.5, .5, 12, 18),//圆环体-甜甜圈
+            new THREE.TorusGeometry(1.5/2, .5/2, 20, 20),//圆环体-甜甜圈
+            new THREE.MeshBasicMaterial({
+                color : 0xff0000,
+                wireframe: true
+            })
         );
         scene.add(cube);//场景中置入图形
 
         //渲染场景和相机
-        renderer.render(scene,camera);*/
+        renderer.render(scene,camera);
+
+
+        !function m() {
+            cube.rotation.y = (cube.rotation.y + 0.005) % (Math.PI * 2);
+            renderer.render(scene,camera);
+            requestAnimationFrame(m);
+        }();
+
 
 
 
