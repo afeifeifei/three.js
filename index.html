@@ -14,6 +14,7 @@
 <body>
     <div id="wrap"></div>
     <script src="src/three.js"></script>
+    <script src="src/stat.min.js"></script>
     <script>
 
         var w = window.innerWidth,
@@ -56,10 +57,24 @@
         renderer.render(scene,camera);
 
 
+
+        var stat = null;
+        !function init() {
+            stat = new Stats();
+            stat.domElement.style.position = 'absolute';
+            stat.domElement.style.right = '0px';
+            stat.domElement.style.top = '0px';
+            document.body.appendChild(stat.domElement);
+
+        }();
+
         !function m() {
+            stat.begin();
             cube.rotation.y = (cube.rotation.y + 0.005) % (Math.PI * 2);
             renderer.render(scene,camera);
             requestAnimationFrame(m);
+
+            stat.end();
         }();
 
 
