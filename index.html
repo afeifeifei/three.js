@@ -70,6 +70,7 @@
 
         !function m() {
             stat.begin();
+
             cube.rotation.y = (cube.rotation.y + 0.005) % (Math.PI * 2);
             renderer.render(scene,camera);
             requestAnimationFrame(m);
